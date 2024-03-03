@@ -1,26 +1,23 @@
 const amountFor = require("./amountFor");
 const invoices = require("../invoices.json");
 const { playFor } = require("./playFor");
-const volumeCreditsFor = require("./volumeCreditsFor");
+
 const USDFormat = require("./USDFormat");
+const totalVolumeCredits = require("./totalVolumeCredits");
+const totalAmountFunction = require("./totalAmountFunction");
 
 function statement(invoice) {
-  let totalAmount = 0;
-  let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
 
   for (let perf of invoice.performances) {
-    // soma créditos por volume
-    volumeCredits += volumeCreditsFor(perf);
     // exibe a linha para esta requisição
     result += ` ${playFor(perf).name}: ${USDFormat(amountFor(perf) / 100)} (${
       perf.audience
     } seats)\n`;
-    totalAmount += amountFor(perf);
   }
 
-  result += `Amount owed is ${USDFormat(totalAmount / 100)}\n`;
-  result += `You earned ${volumeCredits} credits\n`;
+  result += `Amount owed is ${USDFormat(totalAmountFunction(invoice) / 100)}\n`;
+  result += `You earned ${totalVolumeCredits(invoice)} credits\n`;
   return result;
 }
 
