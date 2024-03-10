@@ -1,7 +1,7 @@
-const plays = require("../datas/plays.json");
+// const plays = require("../datas/plays.json");
 
-function playFor(aPerformance) {
-  return plays[aPerformance.playID];
-}
+// function playFor(aPerformance) {
+//   return plays[aPerformance.playID];
+// }
 
-module.exports = { playFor, plays };
+// module.exports = { playFor, plays };
