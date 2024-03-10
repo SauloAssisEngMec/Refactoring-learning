@@ -9,7 +9,7 @@ const totalAmountFunction = require("./totalAmountFunction");
 function statement(invoice) {
   const statementData = {};
   statementData.customer = invoice.customer;
-  statementData.performances = invoice.performances;
+  statementData.performances = invoice.performances.map(enrichPerformance);
 
   return renderText(statementData, invoice);
 }
@@ -31,6 +31,10 @@ function renderText(data) {
   return result;
 }
 
+function enrichPerformance(aPerformance) {
+  const result = Object.assign({}, aPerformance);
+  return result;
+}
 // console.log(statement(invoice, plays));
 
 console.log(statement(invoices));
